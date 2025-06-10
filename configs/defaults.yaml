@@ -14,8 +14,8 @@ experiment:
   device: "cuda:0"  # TODO: please change
 
 wandb:
-  project: "legged-gym" # TODO: please change
-  entity: "chris-pal" # TODO: please change
+  project: "mrss" # TODO: please change
+  entity: "modanesh" # TODO: please change
 #  name: "${experiment.name}" # unused
 
 env:

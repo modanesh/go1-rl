@@ -21,7 +21,7 @@ def play(cfg):
     cfg.terrain.num_rows = 6
     cfg.terrain.num_cols = 6
     cfg.terrain.curriculum = True
-    cfg.terrain.mesh_type = "trimesh"
+    cfg.terrain.mesh_type = "plane"
     cfg.terrain.terrain_proportions = [0.0, 0.0, 0.0, 0.0, 1.0]  # maximum difficulty
     cfg.env.priv_observe_contact_forces = False
     cfg.env.priv_observe_base_lin_vel = False
@@ -65,18 +65,10 @@ def play(cfg):
     stop_state_log = 100  # number of steps before plotting states
     stop_rew_log = env.max_episode_length + 1  # number of steps before print average episode rewards
 
-    # ===  hardcoded test command
-    x_vel_cmd, y_vel_cmd, yaw_vel_cmd, body_height_cmd = 0.3, 0.0, 0.0, 0.0
-    print(f"=== RUNNING COMMAND [{x_vel_cmd}, {y_vel_cmd}, {yaw_vel_cmd}, {body_height_cmd}]")
-
     obs = env.get_observations()
 
     for i in range(10 * int(env.max_episode_length)):
         actions = policy(obs.detach())
-        env.commands[:, 0] = x_vel_cmd
-        env.commands[:, 1] = y_vel_cmd
-        env.commands[:, 2] = yaw_vel_cmd
-        env.commands[:, 3] = body_height_cmd
         obs, _, rews, dones, infos = env.step(actions.detach())
 
         if i < stop_state_log:
